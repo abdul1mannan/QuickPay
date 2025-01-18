@@ -19,7 +19,7 @@ export function Signin() {
         <InputBox placeholder="123456" label={"Password"} onChange={(e)=>{setPassword(e.target.value)}} />
         <div className="flex justify-center p-3">
           <Button label="Signin" onClick={()=>{
-            axios.post("http://localhost:3000/api/v1/users/signin", {
+            axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/signin`, {
               username, 
               password
             })

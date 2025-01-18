@@ -3,21 +3,25 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-
 export function Users() {
   const [users, setUsers] = useState([]);
   const [filter, setFilter] = useState("");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
   useEffect(() => {
     const token = localStorage.getItem("token");
-  
+
     axios
-      .get("http://localhost:3000/api/v1/users/bulk?filter="+filter, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then(response => {
+      .get(
+        `${
+          import.meta.env.VITE_BACKEND_URL
+        }/api/v1/users/bulk?filter=${filter}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
         setUsers(response.data?.user || []);
       })
       .catch((error) => {
@@ -31,16 +35,17 @@ export function Users() {
         Users
       </div>
 
- 
-        <div className="flex-auto px-4">
-          <input
-            type="text"
-            placeholder="Search"
-            className="w-full border-2 h-full items-center border-slate-950 rounded-lg px-2 py-1"
-            onChange={(e)=>{setFilter(e.target.value)}}
-          />
-        </div>
-   
+      <div className="flex-auto px-4">
+        <input
+          type="text"
+          placeholder="Search"
+          className="w-full border-2 h-full items-center border-slate-950 rounded-lg px-2 py-1"
+          onChange={(e) => {
+            setFilter(e.target.value);
+          }}
+        />
+      </div>
+
       <div className="px-4 py-2">
         {users.length > 0 ? (
           users.map((user) => (
@@ -53,9 +58,14 @@ export function Users() {
               </div>
               <div className="text-slate-950 font-medium">{user.username}</div>
               <div className="flex-auto justify-end text-end items-end">
-                <Button onClick={()=>{
-                  navigate("/transfer?id="+user.id + "&username="+user.username)
-                }} label={"Send Money"} />
+                <Button
+                  onClick={() => {
+                    navigate(
+                      "/transfer?id=" + user.id + "&username=" + user.username
+                    );
+                  }}
+                  label={"Send Money"}
+                />
               </div>
             </div>
           ))

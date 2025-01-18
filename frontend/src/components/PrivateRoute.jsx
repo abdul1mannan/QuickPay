@@ -15,7 +15,7 @@ export function PrivateRoute({ children }) {
 
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/v1/auth/verify-token",
+          `${import.meta.env.VITE_BACKEND_URL}/api/v1/auth/verify-token`,
           {},
           {
             headers: {
