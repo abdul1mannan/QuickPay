@@ -1,23 +1,24 @@
-const express = require('express');
-const { connectDB } = require('./db'); // Assuming db.js is in the same directory level
-const apiRouter = require('./routes/index');
-const cors = require('cors');
-
+const express = require("express");
+const { connectDB } = require("./db");
+const apiRouter = require("./routes/index");
+const cors = require("cors");
 
 const app = express();
 
-
-app.use(cors());
-
-
+app.use(
+  cors({
+    origin: "*",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 
 connectDB();
-
 
 app.use(express.json());
 
 // Route requests to /api/v1
-app.use('/api/v1', apiRouter);
+app.use("/api/v1", apiRouter);
 
 const PORT = process.env.PORT || 3000;
 
