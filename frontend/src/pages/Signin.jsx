@@ -15,8 +15,8 @@ export function Signin() {
       <div className="flex flex-col justify-center bg-white border-2 border-slate-950 rounded-lg p-4">
         <Heading label="Signin" />
         <Subheading label="Signin to your account" />
-        <InputBox placeholder="abdul1mannan" label={"Username"} onChange={(e)=>{setUsername(e.target.value)}} />
-        <InputBox placeholder="123456" label={"Password"} onChange={(e)=>{setPassword(e.target.value)}} />
+        <InputBox placeholder="abdul1mannan" label={"Username"} value={username} onChange={(e)=>{setUsername(e.target.value)}} />
+        <InputBox placeholder="123456" label={"Password"} value={password} onChange={(e)=>{setPassword(e.target.value)}} />
         <div className="flex justify-center p-3">
           <Button label="Signin" onClick={()=>{
             axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/v1/users/signin`, {
